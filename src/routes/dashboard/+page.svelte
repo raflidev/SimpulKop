@@ -24,16 +24,29 @@
     { tanggal:'14 Jun 2026', klaster:'Depok', kopdes:2, vendor:2, km:8.7, hemat:'48%' }
   ];
 
+  const STYLES = {
+    lite:     { url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', label: 'Lite' },
+    standard: { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',             label: 'Standard' },
+    gelap:    { url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',  label: 'Gelap' },
+    satelit:  { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', label: 'Satelit' },
+  };
+
   let mapEl = $state(null);
-  let map;
+  let map, tileLayer, L;
+  let mapStyle = $state('lite');
+
+  function setStyle(key) {
+    mapStyle = key;
+    if (!map || !L) return;
+    tileLayer?.remove();
+    tileLayer = L.tileLayer(STYLES[key].url, { attribution: '© OSM © CARTO' }).addTo(map);
+  }
 
   onMount(async () => {
     const mod = await import('leaflet');
-    const L = mod.default;
+    L = mod.default;
     map = L.map(mapEl, { zoomControl: false, dragging: false, scrollWheelZoom: false }).setView([-7.715, 110.38], 11);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap'
-    }).addTo(map);
+    tileLayer = L.tileLayer(STYLES.lite.url, { attribution: '© OSM © CARTO' }).addTo(map);
 
     VENDORS.forEach(v => {
       const color = CAT_COLORS[v.kategori] || '#9CA3AF';
@@ -84,7 +97,18 @@
     <!-- Mini Map -->
     <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
       <div class="px-4 py-3 border-b border-slate-100 font-semibold text-slate-800 text-sm">Sebaran Vendor & Kopdes</div>
-      <div bind:this={mapEl} style="height: 280px"></div>
+      <div class="relative" style="height: 280px">
+        <div bind:this={mapEl} class="absolute inset-0"></div>
+        <div class="absolute bottom-2 left-2 z-[1000] flex gap-1 bg-white/90 backdrop-blur-sm rounded-lg shadow border border-slate-200 p-0.5">
+          {#each Object.entries(STYLES) as [key, s]}
+            <button onclick={() => setStyle(key)}
+              class="px-2 py-0.5 rounded text-[11px] font-medium transition-colors
+                {mapStyle === key ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'}">
+              {s.label}
+            </button>
+          {/each}
+        </div>
+      </div>
       <div class="px-4 py-2 flex gap-4 text-xs text-slate-500">
         <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-800 inline-block"></span>Kopdes</span>
         <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>Vendor</span>

@@ -3,9 +3,24 @@
   import { VENDORS, KOPDES, CAT_COLORS, DEMO } from '$lib/data.js';
   import { calcSavings, formatRp, BIAYA_PER_KM } from '$lib/geo.js';
 
+  const STYLES = {
+    lite:     { url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', label: 'Lite' },
+    standard: { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',             label: 'Standard' },
+    gelap:    { url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',  label: 'Gelap' },
+    satelit:  { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', label: 'Satelit' },
+  };
+
   let mapEl = $state(null);
-  let map, routeLayer, markersLayer;
+  let map, routeLayer, markersLayer, tileLayer;
   let L;
+  let mapStyle = $state('lite');
+
+  function setStyle(key) {
+    mapStyle = key;
+    if (!map || !L) return;
+    tileLayer?.remove();
+    tileLayer = L.tileLayer(STYLES[key].url, { attribution: '© OSM © CARTO' }).addTo(map);
+  }
 
   // State - pre-loaded with demo scenario
   let selKopdesIds = $state([...DEMO.kopdesIds]);
@@ -122,9 +137,7 @@
     const mod = await import('leaflet');
     L = mod.default;
     map = L.map(mapEl).setView([-7.69, 110.39], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+    tileLayer = L.tileLayer(STYLES.lite.url, { attribution: '© OSM © CARTO' }).addTo(map);
     markersLayer = L.layerGroup().addTo(map);
     // Auto-run demo
     hitungRute();
@@ -270,7 +283,20 @@
 
   <!-- Peta + Hasil -->
   <div class="flex-1 flex flex-col overflow-hidden">
-    <div bind:this={mapEl} class="flex-1"></div>
+    <div class="relative flex-1">
+      <div bind:this={mapEl} class="absolute inset-0"></div>
+
+      <!-- Map style switcher -->
+      <div class="absolute bottom-6 left-3 z-[1000] flex gap-1 bg-white/90 backdrop-blur-sm rounded-lg shadow border border-slate-200 p-1">
+        {#each Object.entries(STYLES) as [key, s]}
+          <button onclick={() => setStyle(key)}
+            class="px-2.5 py-1 rounded text-xs font-medium transition-colors
+              {mapStyle === key ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'}">
+            {s.label}
+          </button>
+        {/each}
+      </div>
+    </div>
 
     <!-- Savings Card -->
     {#if result}
