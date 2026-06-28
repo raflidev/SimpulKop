@@ -1,0 +1,9 @@
+kopdes_id,nama_kopdes,desa,kecamatan,kabupaten,alamat,latitude,longitude,jumlah_anggota,punya_gudang,kebutuhan_utama,kontak_pengurus,catatan
+KOP-01,Kopdes Merah Putih Sardonoharjo,Sardonoharjo,Ngaglik,Sleman,Balai Desa Sardonoharjo,-7.6756,110.3923,612,Ya,"Sembako, pupuk, pakan ternak",0812-2700-0001,Punya gudang sedang, jadi hub klaster utara
+KOP-02,Kopdes Merah Putih Donoharjo,Donoharjo,Ngaglik,Sleman,Jl. Ngepringan No. 2,-7.6667,110.3823,438,Tidak,"Sayur, sembako, sarana tani",0813-2800-0002,Volume kecil, sering pengadaan gabungan
+KOP-03,Kopdes Merah Putih Sinduharjo,Sinduharjo,Ngaglik,Sleman,Balai Desa Sinduharjo,-7.6901,110.3945,575,Ya,"Sembako, protein, pakan",0856-4300-0003,Dekat distributor protein, biaya antar rendah
+KOP-04,Kopdes Merah Putih Sukoharjo,Sukoharjo,Ngaglik,Sleman,Jl. Palagan KM 9,-7.7033,110.3878,521,Tidak,"Pupuk, pakan ternak, sembako",0878-3900-0004,Basis pertanian, kebutuhan sarana tani tinggi
+KOP-05,Kopdes Merah Putih Sendangadi,Sendangadi,Mlati,Sleman,Balai Desa Sendangadi,-7.7278,110.3612,689,Ya,"Sembako, air minum, ATK",0813-9000-0005,Anggota terbanyak, jadi hub klaster barat
+KOP-06,Kopdes Merah Putih Tlogoadi,Tlogoadi,Mlati,Sleman,Jl. Kebonagung No. 4,-7.7423,110.3389,496,Tidak,"Sembako, sayur, kemasan",0812-1500-0006,Dekat banyak grosir sembako
+KOP-07,Kopdes Merah Putih Maguwoharjo,Maguwoharjo,Depok,Sleman,Jl. Ringroad Utara No. 90,-7.7623,110.4101,734,Ya,"Sembako, buah, protein",0813-2700-0007,Akses jalan besar, cocok titik bongkar muat besar
+KOP-08,Kopdes Merah Putih Condongcatur,Condongcatur,Depok,Sleman,Jl. Gejayan No. 50,-7.7578,110.3945,803,Ya,"Sembako, sanitasi, ATK",0812-2600-0008,Wilayah padat, perputaran cepat
