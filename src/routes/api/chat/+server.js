@@ -1,9 +1,9 @@
 import { json } from '@sveltejs/kit';
-import Anthropic from '@anthropic-ai/sdk';
-import { ANTHROPIC_API_KEY } from '$env/static/private';
+import Groq from 'groq-sdk';
+import { GROQ_API_KEY } from '$env/static/private';
 import { VENDORS, KOPDES, buildVendorContext } from '$lib/data.js';
 
-const client = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
+const client = new Groq({ apiKey: GROQ_API_KEY });
 
 const SYSTEM = `Kamu adalah asisten pengadaan SimpulKop untuk koperasi desa di Kabupaten Sleman, Yogyakarta.
 Tugasmu: bantu pengurus koperasi menemukan vendor/UMKM terbaik sesuai kebutuhan mereka.
@@ -24,12 +24,11 @@ ${buildVendorContext()}`;
 export async function POST({ request }) {
   const { messages } = await request.json();
 
-  const response = await client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
+  const response = await client.chat.completions.create({
+    model: 'llama-3.3-70b-versatile',
     max_tokens: 1024,
-    system: SYSTEM,
-    messages
+    messages: [{ role: 'system', content: SYSTEM }, ...messages]
   });
 
-  return json({ reply: response.content[0].text });
+  return json({ reply: response.choices[0].message.content });
 }

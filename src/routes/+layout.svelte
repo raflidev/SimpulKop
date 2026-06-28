@@ -6,7 +6,8 @@
     { href: '/', label: 'Peta Vendor' },
     { href: '/klaster', label: 'Klaster & Rute' },
     { href: '/chat', label: 'Chat AI' },
-    { href: '/dashboard', label: 'Dashboard' }
+    { href: '/dashboard', label: 'Dashboard' },
+    { href: '/manajemen', label: 'Manajemen' }
   ];
 </script>
 

@@ -7,15 +7,15 @@
   let map, routeLayer, markersLayer;
   let L;
 
-  // State — pre-loaded with demo scenario
+  // State - pre-loaded with demo scenario
   let selKopdesIds = $state([...DEMO.kopdesIds]);
   let selVendorIds = $state([...DEMO.vendorIds]);
   let result = $state(null);
   let loadingRoute = $state(false);
   let showAlt = $state(false); // alternative route demo
 
-  // Alternative: VND-001 habis → ganti VND-017
-  const ALT_VENDOR_ID = 'VND-017';
+  // Alternative: Mina Swalayan habis → ganti Damai Makmur
+  const ALT_VENDOR_ID = 'VND-001';
 
   const selKopdes = $derived(KOPDES.filter(k => selKopdesIds.includes(k.id)));
   const selVendors = $derived(VENDORS.filter(v => selVendorIds.includes(v.id)));
@@ -48,10 +48,10 @@
     if (!selKopdes.length || !selVendors.length) return;
     loadingRoute = true;
     const vendors = showAlt
-      ? [...selVendors.filter(v => v.id !== 'VND-001'), VENDORS.find(v => v.id === ALT_VENDOR_ID)]
+      ? [...selVendors.filter(v => v.id !== 'VND-031'), VENDORS.find(v => v.id === ALT_VENDOR_ID)]
       : selVendors;
 
-    // Step 1: TSP ordering via Haversine (instant) — shows straight-line preview
+    // Step 1: TSP ordering via Haversine (instant) - shows straight-line preview
     result = calcSavings(vendors, selKopdes);
 
     // Step 2: Fetch actual road geometry & update stats
@@ -75,7 +75,7 @@
         };
       }
     } catch {
-      // network error or rate limit — straight-line result stays
+      // network error or rate limit - straight-line result stays
     }
     loadingRoute = false;
   }
@@ -145,6 +145,16 @@
       : [...selVendorIds, id];
     result = null;
   }
+
+  function bukaGoogleMaps() {
+    const pts = result.route.filter((_, i) => i < result.route.length - 1);
+    const coord = p => `${p.lat},${p.lng}`;
+    const origin = coord(pts[0]);
+    const dest = coord(pts[pts.length - 1]);
+    const waypoints = pts.slice(1, -1).map(coord).join('|');
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}${waypoints ? `&waypoints=${waypoints}` : ''}&travelmode=driving`;
+    window.open(url, '_blank');
+  }
 </script>
 
 <div class="flex flex-1 overflow-hidden" style="height: calc(100vh - 56px)">
@@ -152,7 +162,7 @@
   <aside class="w-80 bg-white border-r border-slate-200 flex flex-col overflow-y-auto shrink-0">
     <div class="p-4 bg-green-50 border-b border-green-100">
       <div class="text-xs font-semibold text-green-700 uppercase tracking-wide mb-1">Demo Skenario</div>
-      <div class="text-sm text-green-900 font-medium">Klaster Ngaglik — 3 Kopdes, 2 Vendor</div>
+      <div class="text-sm text-green-900 font-medium">Klaster Ngaglik - 3 Kopdes, 2 Vendor</div>
     </div>
 
     <!-- Step 1: Pilih Kopdes -->
@@ -230,11 +240,11 @@
       <div class="text-xs font-semibold text-red-700 uppercase mb-2">Simulasi Gangguan</div>
       <label class="flex items-center gap-2 cursor-pointer mb-2">
         <input type="checkbox" bind:checked={showAlt} onchange={hitungRute} class="rounded accent-red-600" />
-        <span class="text-sm text-red-800">VND-001 stok habis → ganti VND-017</span>
+        <span class="text-sm text-red-800">Mina Swalayan stok habis → ganti Damai Makmur</span>
       </label>
       {#if showAlt}
         <div class="text-xs text-red-700 bg-red-100 rounded p-2">
-          Sistem merekomendasikan <b>Toko Kelontong Rahayu</b> sebagai pengganti terdekat. Rute disesuaikan otomatis.
+          Sistem merekomendasikan <b>Toko Sembako Damai Makmur</b> (Jl. Damai No.1, Sinduharjo) sebagai pengganti terdekat. Rute disesuaikan otomatis.
         </div>
       {/if}
     </div>

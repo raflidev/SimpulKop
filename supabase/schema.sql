@@ -1,4 +1,4 @@
--- SimpulKop — Schema PostgreSQL + PostGIS
+-- SimpulKop - Schema PostgreSQL + PostGIS
 -- Untuk produksi: aktifkan di Supabase (sudah include PostGIS)
 
 CREATE EXTENSION IF NOT EXISTS postgis;
