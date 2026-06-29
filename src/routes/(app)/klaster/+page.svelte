@@ -170,7 +170,7 @@
   }
 </script>
 
-<div class="flex flex-1 overflow-hidden" style="height: calc(100vh - 56px)">
+<div class="flex flex-1 overflow-hidden">
   <!-- Panel Kiri -->
   <aside class="w-80 bg-white border-r border-slate-200 flex flex-col overflow-y-auto shrink-0">
     <div class="p-4 bg-green-50 border-b border-green-100">

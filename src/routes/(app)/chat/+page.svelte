@@ -46,7 +46,7 @@
   }
 </script>
 
-<div class="flex flex-col" style="height: calc(100vh - 56px)">
+<div class="flex flex-col flex-1">
   <!-- Header -->
   <div class="bg-white border-b border-slate-200 px-6 py-3">
     <h1 class="font-semibold text-slate-800">Asisten AI SimpulKop</h1>
