@@ -105,10 +105,7 @@
   <!-- NAV -->
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
     <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center gap-6">
-      <a href="/" class="flex items-center gap-2.5 font-bold text-slate-900 mr-auto shrink-0">
-        <span class="w-7 h-7 bg-green-700 rounded-[6px] flex items-center justify-center text-white text-[11px] font-black">SK</span>
-        SimpulKop
-      </a>
+      <a href="/" class="font-bold text-slate-900 mr-auto shrink-0">SimpulKop</a>
       <div class="hidden lg:flex items-center gap-5 text-sm text-slate-500">
         <a href="/peta" class="hover:text-slate-800 transition-colors">Peta Vendor</a>
         <a href="/klaster" class="hover:text-slate-800 transition-colors">Klaster &amp; Rute</a>
@@ -385,10 +382,7 @@
   <!-- FOOTER -->
   <footer class="border-t border-slate-100 py-8">
     <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2 font-bold text-slate-600">
-        <span class="w-6 h-6 bg-green-700 rounded-[5px] flex items-center justify-center text-white text-[10px] font-black">SK</span>
-        SimpulKop
-      </div>
+      <div class="font-bold text-slate-600">SimpulKop</div>
       <div class="text-sm text-slate-400">&copy; 2026 Hackathon MVP - Sleman, Daerah Istimewa Yogyakarta</div>
     </div>
   </footer>

@@ -35,9 +35,8 @@
     <!-- Logo + collapse toggle -->
     <div class="h-14 flex items-center border-b border-slate-200 shrink-0 overflow-hidden
       {collapsed ? 'justify-center px-0' : 'px-4'}">
-      <span class="text-xl shrink-0">🗺</span>
       {#if !collapsed}
-        <span class="font-bold text-slate-800 tracking-tight whitespace-nowrap ml-2 flex-1">SimpulKop</span>
+        <span class="font-bold text-slate-800 tracking-tight whitespace-nowrap flex-1">SimpulKop</span>
         <button
           onclick={() => collapsed = true}
           class="hidden lg:flex p-1.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors shrink-0"
